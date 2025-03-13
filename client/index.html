@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Crystal Music</title>
+		<link rel="stylesheet" href="./css/styles.css" />
+	</head>
+	<body>
+		<header class="header">
+			<div class="header__inner container">
+				<p class="header__logo">CrystalMusic</p>
+				<nav class="header__menu">
+					<ul class="header__list">
+						<li class="header__item">
+							<a href="#hero" class="header__link">Записаться</a>
+						</li>
+						<li class="nav__item">
+							<a href="#services" class="header__link">Услуги</a>
+						</li>
+						<li class="nav__item"><a href="" class="header__link">О нас</a></li>
+					</ul>
+				</nav>
+				<div class="header__buttons">
+					<button class="header__button button auth" type="button">
+						Авторизация
+					</button>
+					<button class="header__button button reg">Регистрация</button>
+					<button class="header__button button book" style="display: none">
+						Записаться
+					</button>
+					<button class="header__button button logout" style="display: none">
+						Выход
+					</button>
+				</div>
+			</div>
+		</header>
+		<main class="main">
+			<div class="hero" id="hero">
+				<div class="hero__section container">
+					<div class="hero__info">
+						<h2 class="hero__text"><span>Студия</span><br />звукозаписи</h2>
+						<span class="hero__adress">Ленина 76, пв. 2</span>
+						<button class="hero__button button">Записаться</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="services" id="services">
+				<div class="services__section container">
+					<div class="services__list">
+						<div class="services__card card">
+							<img
+								src="./images/record-card.jpg"
+								alt="Картинка записи"
+								class="card__image"
+								width="360"
+							/>
+							<div class="card__info">
+								<h3 class="card__title">Запись трека</h3>
+
+								<p class="card__description">
+									В эту услуги входит полная запись по выбранному количеству
+									часов, помощь профессионалов с выбором плагинов и с
+									подготовкой вокала.
+								</p>
+
+								<p class="card__price">Цена за час: <span>15р</span></p>
+							</div>
+						</div>
+
+						<div class="services__card card">
+							<img
+								src="./images/record-plus-card.jpg"
+								alt="Картинка записи и сведения"
+								class="card__image"
+								width="300"
+							/>
+
+							<div class="card__info">
+								<h3 class="card__title">Запись трека + сведение</h3>
+
+								<p class="card__description">
+									В эту услуги входит полная запись и последующее сведение по
+									выбранному количеству часов, помощь профессионалов с выбором
+									плагинов и с подготовкой вокала, настройка автотюна,
+									подготовка трека к реализации.
+								</p>
+
+								<p class="card__price">Цена за час: <span>30р</span></p>
+							</div>
+						</div>
+
+						<div class="services__card card">
+							<img
+								src="./images/mixing-card.jpg"
+								alt="Картинка сведения"
+								class="card__image"
+								width="300"
+							/>
+
+							<div class="card__info">
+								<h3 class="card__title">Сведение</h3>
+
+								<p class="card__description">
+									В эту услуги входит сведение вашего трека по выбранному
+									количеству часов, помощь профессионалов с выбором плагинов,
+									настройка дорожки, подготовка к реализации, перезапись нужных
+									фрагментов.
+								</p>
+
+								<p class="card__price">Цена за час: <span>20р</span></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer class="footer"></footer>
+
+		<dialog class="auth-overlay" id="auth-overlay">
+			<form class="auth-form" method="POST" action="/login">
+				<input type="email" class="auth-input" placeholder="Email" />
+				<input type="password" class="auth-input" placeholder="Пароль" />
+				<button class="auth-button button">Авторизация</button>
+			</form>
+		</dialog>
+		<dialog class="reg-overlay" id="reg-overlay">
+			<form class="reg-form" method="POST" action="/register">
+				<input type="text" class="reg-input" placeholder="Имя" />
+				<input type="email" class="reg-input" placeholder="Email" />
+				<input type="password" class="reg-input" placeholder="Пароль" />
+				<button class="reg-button button">Зарегистрироваться</button>
+			</form>
+		</dialog>
+		<dialog class="record-overlay" id="record-overlay">
+			<form class="record-form" method="POST">
+				<h2>Записаться на студию</h2>
+
+				<input
+					type="text"
+					class="record-input"
+					placeholder="Запишите вид записи"
+					required
+				/>
+
+				<input
+					type="number"
+					class="record-input"
+					placeholder="Количество часов"
+					required
+				/>
+
+				<input
+					type="time"
+					class="record-input"
+					placeholder="Выберите время"
+					required
+				/>
+
+				<input
+					type="date"
+					class="record-input"
+					placeholder="Выберите день"
+					required
+				/>
+
+				
+
+				<button class="record-button button" type="submit">Записаться</button>
+			</form>
+		</dialog>
+
+		<script src="./js/index.js" defer></script>
+	</body>
+</html>

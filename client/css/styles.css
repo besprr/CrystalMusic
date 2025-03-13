@@ -1,0 +1,402 @@
+@font-face {
+  font-family: "Nunito";
+  src: url("../fonts/Nunito-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Playwrite IN";
+  src: url("../fonts/PlaywriteIN-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+  overflow: hidden;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body,
+html {
+  color: #ffffff;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  font-family: "Nunito", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.button {
+  height: 30px;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+.button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  padding: 30px 0;
+}
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__list {
+  display: flex;
+  font-size: 18px;
+  -moz-column-gap: 40px;
+       column-gap: 40px;
+}
+.header__logo {
+  font-size: 48px;
+  font-family: "Playwrite IN";
+  font-weight: 900;
+  font-style: italic;
+}
+.header__buttons {
+  display: flex;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+}
+
+.auth {
+  background-color: rgb(121, 36, 6);
+  border: none;
+  height: 40px;
+}
+
+.reg {
+  background-color: white;
+  color: black;
+  border: none;
+  height: 40px;
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-image: linear-gradient(rgb(0, 0, 0), rgba(0, 0, 0, 0.7)), url("../images/hero-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.hero__section {
+  display: flex;
+  margin: 0 auto;
+}
+.hero__text {
+  font-size: 115px;
+  font-weight: 900;
+}
+.hero__text span {
+  color: rgb(121, 35, 1);
+}
+.hero__info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 45px;
+}
+.hero__adress {
+  font-size: 48px;
+}
+.hero__button {
+  background-color: rgb(121, 36, 6);
+  border: none;
+  font-size: 36px;
+  height: 60px;
+}
+
+.services {
+  height: 100vh;
+  background-image: linear-gradient(rgb(0, 0, 0), rgba(0, 0, 0, 0.9)), url("../images/services-bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+}
+.services__section {
+  margin: auto;
+}
+.services__list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 35px;
+  width: 100%;
+  max-width: 400px;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-radius: 10px;
+}
+.card__info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+.card__image {
+  margin-inline: auto;
+  filter: grayscale(1);
+}
+.card__title {
+  font-size: 24px;
+  color: black;
+  font-family: "Playwrite IN";
+  font-weight: 900;
+  font-style: italic;
+}
+.card__description {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 120%;
+}
+.card__price {
+  font-size: 22px;
+  font-weight: 900;
+  color: black;
+}
+.card__price span {
+  color: white;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  row-gap: 20px;
+  font-family: "Nunito", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+.auth-input {
+  border: 1px solid rgb(121, 36, 6);
+}
+.auth-input:focus {
+  outline: 1px solid rgb(121, 36, 6);
+}
+.auth-overlay {
+  border-radius: 8px;
+  border: 2px solid rgb(121, 36, 6);
+}
+.auth-button {
+  background-color: rgb(121, 36, 6);
+}
+
+.reg-form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  row-gap: 20px;
+  font-family: "Nunito", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+.reg-input {
+  border: 1px solid rgb(121, 36, 6);
+}
+.reg-input:focus {
+  outline: 1px solid rgb(121, 36, 6);
+}
+.reg-input::-moz-placeholder {
+  font-family: "Nunito", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+.reg-input::placeholder {
+  font-family: "Nunito", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+.reg-overlay {
+  border-radius: 8px;
+  border: 2px solid rgb(121, 36, 6);
+}
+.reg-button {
+  background-color: rgb(121, 36, 6);
+}
+
+.record-form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  row-gap: 20px;
+  font-family: "Nunito", sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+.record-input {
+  border: 1px solid rgb(121, 36, 6);
+}
+.record-input:focus {
+  outline: 1px solid rgb(121, 36, 6);
+}
+.record-overlay {
+  border-radius: 8px;
+  border: 2px solid rgb(121, 36, 6);
+}
+.record-button {
+  background-color: rgb(121, 36, 6);
+}/*# sourceMappingURL=styles.css.map */

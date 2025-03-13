@@ -1,0 +1,43 @@
+.header {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	background-color: black;
+	padding: 30px 0;
+	&__inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&__list {
+		display: flex;
+		font-size: 18px;
+		column-gap: 40px;
+	}
+
+	&__logo {
+		font-size: 48px;
+		font-family: 'Playwrite IN';
+		font-weight: 900;
+		font-style: italic;
+	}
+
+	&__buttons {
+		display: flex;
+		column-gap: 15px;
+	}
+}
+
+.auth {
+	background-color: rgb(121, 36, 6);
+	border: none;
+	height: 40px;
+}
+
+.reg {
+	background-color: white;
+	color: black;
+	border: none;
+	height: 40px;
+}

@@ -1,0 +1,42 @@
+.hero {
+	height: 100vh;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7)),
+		url('../images/hero-bg.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+
+	&__section {
+		display: flex;
+		margin: 0 auto;
+	}
+
+	&__text {
+		font-size: 115px;
+		font-weight: 900;
+
+		span{
+			color: rgb(121, 35, 1);
+		}
+	}
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		row-gap: 45px;
+	}
+
+	&__adress {
+		font-size: 48px;
+	}
+
+	&__button {
+		background-color: rgb(121, 36, 6);
+		border: none;
+		font-size: 36px;
+		height: 60px;
+	}
+}

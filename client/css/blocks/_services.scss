@@ -1,0 +1,64 @@
+.services {
+	height: 100vh;
+	background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.9)),
+		url('../images/services-bg.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: flex;
+	justify-content: center;
+
+	&__section {
+		margin: auto;
+	}
+	&__list {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+}
+
+.card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	row-gap: 35px;
+	width: 100%;
+	max-width: 400px;
+	background-color: rgba(255, 255, 255, 0.2);
+	padding: 10px;
+	border-radius: 10px;
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		row-gap: 30px;
+	}
+
+	&__image {
+		margin-inline: auto;
+		filter: grayscale(1);
+	}
+
+	&__title {
+		font-size: 24px;
+		color: black;
+		font-family: 'Playwrite IN';
+		font-weight: 900;
+		font-style: italic;
+	}
+
+	&__description {
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 120%;
+	}
+
+	&__price {
+		font-size: 22px;
+		font-weight: 900;
+		color: black;
+		& span {
+			color: white;
+		}
+	}
+}
