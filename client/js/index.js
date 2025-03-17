@@ -158,10 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		const name = localStorage.getItem('userName')
 		console.log(name)
-		const phone = localStorage.getItem('userPhone')
-		console.log(phone)
-
-		if (!name || !phone) {
+		const userEmail = localStorage.getItem('userEmail')
+		console.log(userEmail)
+ 
+		if (!name || !userEmail) {
 			alert(
 				'Не удалось получить данные пользователя. Пожалуйста, авторизуйтесь заново.'
 			)
@@ -169,15 +169,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		try {
-			const response = await fetch('http://localhost:9000/record', {
+			const response = await fetch(`${API_URL}/records/create`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${token}`,
 				},
 				body: JSON.stringify({
-					name,
-					phone,
 					recordingType,
 					hours,
 					time,

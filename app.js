@@ -1,19 +1,26 @@
 require('dotenv').config()
+require('./server/config/db')
+
 const express = require('express')
 const cors = require('cors')
-const crypto = require('crypto');
-require('./server/config/db');
+const cookieParser = require('cookie-parser')
+const authRoutes = require('./server/routes/authRoutes')
+const records = require('./server/routes/recordsRoutes')
 
-const authRoutes = require('./server/routes/authRoutes');
+const app = express()
+const port = process.env.PORT || 5000
 
-
-const app = express();
-const port = process.env.PORT || 5000;
-
-app.use(cors());
 app.use(express.json())
+app.use(
+	cors({
+		origin: 'http://localhost:5500',
+		credentials: true,
+	})
+)
+app.use(cookieParser())
 
 app.use('/auth', authRoutes)
+app.use('/records', records)
 
 app.listen(port, () => {
 	console.log(`✅ Сервер успешно запущен на порту ${port}`)

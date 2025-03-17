@@ -4,8 +4,6 @@ const bcrypt = require('bcrypt')
 const userService = require('../services/userService')
 const jwtService = require('../services/jwtService')
 
-const { validateEmail } = require('../utils/validateEmail')
-
 const saltRounds = parseInt(process.env.SALT_ROUNDS)
 
 const registerUser = async (req, res) => {
@@ -13,10 +11,6 @@ const registerUser = async (req, res) => {
 
 	if (!RoleID || !FullName || !Email || !PasswordHash) {
 		return res.status(400).json({ error: 'Все поля обязательны.' })
-	}
-
-	if (!validateEmail(Email)) {
-		return res.status(400).json({ error: 'Неверный формат почты.' })
 	}
 
 	try {
@@ -48,7 +42,7 @@ const loginUser = async (req, res) => {
 
 	try {
 		const user = await userService.getUserByEmail(Email)
-	
+
 		if (!user) {
 			return res.status(400).json({ error: 'Пользователь не найден' })
 		}
@@ -67,13 +61,18 @@ const loginUser = async (req, res) => {
 			user.RoleID
 		)
 
-	
 		const refreshToken = jwtService.generateRefreshToken(
 			user.UserID,
 			user.FullName,
 			user.RoleID
 		)
 
+		res.cookie('refreshToken', refreshToken, {
+			httpOnly: true,
+			maxAge: 7 * 24 * 60 * 60 * 1000,
+			sameSite: 'lax',
+			secure: false,
+		})
 
 		await jwtService.saveRefreshToken(user.UserID, refreshToken)
 
@@ -86,4 +85,53 @@ const loginUser = async (req, res) => {
 	}
 }
 
-module.exports = { registerUser, loginUser }
+const refreshTokens = async (req, res) => {
+	const refreshToken = req.cookies.refreshToken
+
+	console.log(refreshToken)
+
+	if (!refreshToken) {
+		return res.status(400).json({ error: 'Refresh токен обязателен' })
+	}
+
+	try {
+		const decoded = jwtService.verifyRefreshToken(refreshToken)
+		if (!decoded) {
+			return res.status(401).json({ error: 'Недействительный refresh токен' })
+		}
+
+		const user = await jwtService.getUserByRefreshToken(refreshToken)
+		if (!user) {
+			return res.status(401).json({ error: 'Пользователь не найден' })
+		}
+
+		const accessToken = jwtService.generateAccessToken(
+			user.UserID,
+			user.Login,
+			user.RoleID
+		)
+		const newRefreshToken = jwtService.generateRefreshToken(
+			user.UserID,
+			user.Login,
+			user.RoleID
+		)
+
+		await jwtService.saveRefreshToken(user.UserID, newRefreshToken)
+
+		res.cookie('refreshToken', newRefreshToken, {
+			httpOnly: true,
+			maxAge: 7 * 24 * 60 * 60 * 1000, 
+			sameSite: 'lax',
+			secure: false, 
+		})
+
+		res.status(200).json({ accessToken, newRefreshToken })
+	} catch (error) {
+		console.error('❌ Ошибка при обновлении токенов:', error)
+		res
+			.status(500)
+			.json({ error: 'Ошибка при обновлении токенов', details: error.message })
+	}
+}
+
+module.exports = { registerUser, loginUser, refreshTokens }
