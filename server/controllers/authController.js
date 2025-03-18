@@ -88,8 +88,6 @@ const loginUser = async (req, res) => {
 const refreshTokens = async (req, res) => {
 	const refreshToken = req.cookies.refreshToken
 
-	console.log(refreshToken)
-
 	if (!refreshToken) {
 		return res.status(400).json({ error: 'Refresh токен обязателен' })
 	}

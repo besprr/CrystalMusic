@@ -7,6 +7,7 @@ const queryDatabase = (query, params = []) => {
 	return new Promise((resolve, reject) => {
 		sql.query(connectionString, query, params, (err, result) => {
 			if (err) {
+				console.error('SQL Error:', err)
 				reject(err)
 			} else {
 				resolve(result)

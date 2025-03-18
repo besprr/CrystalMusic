@@ -6,6 +6,7 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const authRoutes = require('./server/routes/authRoutes')
 const records = require('./server/routes/recordsRoutes')
+const admin = require('./server/routes/adminRoutes')
 
 const app = express()
 const port = process.env.PORT || 5000
@@ -21,6 +22,7 @@ app.use(cookieParser())
 
 app.use('/auth', authRoutes)
 app.use('/records', records)
+app.use('/admin', admin)
 
 app.listen(port, () => {
 	console.log(`✅ Сервер успешно запущен на порту ${port}`)

@@ -6,7 +6,7 @@
 }
 
 .button {
-	height: 30px;
+	height: 40px;
 	background-color: transparent;
 	border: 2px solid white;
 	border-radius: 10px;
@@ -17,5 +17,13 @@
 	&:hover {
 		cursor: pointer;
 		transform: scale(1.1);
+	}
+}
+
+.visible-mobile {
+	display: none;
+
+	@media (max-width: 920px) {
+		display: block;
 	}
 }

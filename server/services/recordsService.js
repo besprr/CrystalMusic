@@ -24,7 +24,7 @@ const createRecord = async (userId, recordingType, hours, time, date) => {
 		// Предположим, что ServiceID и RoomID пока что статические (можно доработать)
 		const serviceId = 1 // ID услуги (например, "Запись в студии")
 		const roomId = 1 // ID помещения (например, "Основная студия")
-		const status = 'Confirmed' // Статус записи
+		const status = 'Pending' // Статус записи
 
 		await queryDatabase(query, [
 			userId,

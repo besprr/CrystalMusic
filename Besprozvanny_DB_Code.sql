@@ -1,6 +1,11 @@
-CREATE DATABASE CrystalMusic
+DROP DATABASE IF EXISTS CrystalMusic;
+GO
 
-USE CrystalMusic
+CREATE DATABASE CrystalMusic;
+GO
+
+USE CrystalMusic;
+GO
 
 -- Создание таблицы ролей
 CREATE TABLE Roles (
@@ -41,7 +46,7 @@ CREATE TABLE Services (
     CategoryID INT NOT NULL,
     ServiceName NVARCHAR(100) NOT NULL,
     Description NVARCHAR(255),
-    BaseColor NVARCHAR(7) NOT NULL DEFAULT '#FFFFFF', -- HEX-цвет для градации
+    BaseColor NVARCHAR(7) NOT NULL DEFAULT '#FFFFFF',
     FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
 );
 
@@ -87,16 +92,47 @@ CREATE TABLE ServiceRooms (
     FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID) ON DELETE CASCADE
 );
 
+-- Таблица посещений
 CREATE TABLE Visits (
     VisitID INT PRIMARY KEY IDENTITY(1,1),
-    UserHash NVARCHAR(64) NOT NULL UNIQUE, -- Хэш IP-адреса или уникальный идентификатор
-    FirstVisitDate DATETIME NOT NULL DEFAULT GETDATE() -- Дата первого посещения
+    UserHash NVARCHAR(64) NOT NULL UNIQUE,
+    FirstVisitDate DATETIME NOT NULL DEFAULT GETDATE()
 );
 
--- Начальные данные: роли
+-- Начальные данные
 INSERT INTO Roles (RoleName) VALUES 
 ('Admin'), 
 ('User');
+
+INSERT INTO Categories (CategoryName) VALUES 
+('Запись'),
+('Сведение и мастеринг'),
+('Аренда студии'),
+('Обучение');
+
+INSERT INTO Services (CategoryID, ServiceName, Description, BaseColor) VALUES 
+(1, 'Запись вокала', 'Профессиональная запись вокала в студии', '#FF5733'),
+(1, 'Запись инструментов', 'Запись гитары, барабанов, клавишных и других инструментов', '#33FF57'),
+(2, 'Сведение трека', 'Сведение многодорожечной записи', '#3357FF'),
+(2, 'Мастеринг трека', 'Финальная обработка трека для выпуска', '#FF33A1'),
+(3, 'Аренда студии для репетиций', 'Аренда студии для репетиций группы', '#A133FF'),
+(3, 'Аренда студии для записи', 'Аренда студии для звукозаписи', '#33FFF5'),
+(4, 'Курс по звукозаписи', 'Обучение основам звукозаписи и работы в студии', '#F5FF33'),
+(4, 'Курс по сведению', 'Обучение сведению и мастерингу', '#FF3333');
+
+INSERT INTO Rooms (RoomName, Capacity, IsAvailable) VALUES 
+('Основная студия', 5, 1),
+('Малая студия', 3, 1),
+('Зал для репетиций', 10, 1),
+('Студия звукозаписи', 2, 1);
+
+INSERT INTO ServiceRooms (ServiceID, RoomID) VALUES 
+(1, 1),
+(2, 1),
+(3, 2),
+(4, 2),
+(5, 3),
+(6, 4);
 
 -- Индексы для оптимизации
 CREATE INDEX IX_Bookings_Time ON Bookings (StartTime, EndTime);
