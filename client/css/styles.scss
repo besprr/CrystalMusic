@@ -1,4 +1,5 @@
-@import 'fonts', 'reset', 'globals', 'utils';
+@import 'fonts', 'reset', 'globals', 'utils', 'media';
 
 @import 'blocks/header', 'blocks/hero', 'blocks/services', 'blocks/auth-overlay',
-	'blocks/reg-overlay', 'blocks/record-overlay', 'blocks/admin-panel';
+	'blocks/reg-overlay', 'blocks/record-overlay', 'blocks/admin-panel',
+	'blocks/entry', 'blocks/user-cabinet';

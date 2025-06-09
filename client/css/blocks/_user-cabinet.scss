@@ -1,0 +1,30 @@
+.userCabinetDialog {
+	width: 700px;
+	display: flex;
+	flex-direction: column;
+	row-gap: 15px;
+	display: none;
+
+	&__title {
+		font-size: clamp(20px, 4vw, 40px);
+		text-align: center;
+	}
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		row-gap: 8px;
+		font-size: clamp(14px, 3vw, 20px);
+	}
+
+	&__sub-title {
+		padding-top: 15px;
+		font-size: clamp(20px, 4vw, 40px);
+		text-align: center;
+	}
+
+	&__table td{
+		text-align: center;
+		padding: 10px 0;
+	}
+}

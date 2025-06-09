@@ -6,6 +6,10 @@
 	background-size: cover;
 	display: flex;
 	justify-content: center;
+	@include media(1260px){
+		height: fit-content;
+		align-items: center;
+	}
 
 	&__section {
 		margin: auto;
@@ -14,6 +18,12 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+
+		@include media(1260px){
+			flex-direction: column;
+			row-gap: 15px;
+			align-items: center;
+		}
 	}
 }
 

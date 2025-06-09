@@ -7,13 +7,50 @@ GO
 USE CrystalMusic;
 GO
 
--- Создание таблицы ролей
+INSERT INTO Employees (FullName, Position, HireDate) VALUES
+('Иванов Иван', 'Звукорежиссер', '2022-01-15'),
+('Петров Пётр', 'Администратор', '2021-07-01'),
+('Сидоров Сидор', 'Звукорежиссер', '2023-03-12'),
+('Артемчик Артем', 'Звукорежиссер', '2020-11-05');
+
+
+ALTER TRIGGER trg_MoveCancelledBooking
+ON Bookings
+AFTER UPDATE
+AS
+BEGIN
+    INSERT INTO RejectedBookings (
+        BookingID, 
+        UserID, 
+        RoomID, 
+        ServiceID, 
+        StartTime, 
+        EndTime,
+        CancellationReason
+    )
+    SELECT 
+        i.BookingID,
+        i.UserID,
+        i.RoomID,
+        i.ServiceID,
+        i.StartTime,
+        i.EndTime,
+        'Отклонено администратором' -- Базовая причина
+    FROM inserted i
+    WHERE i.Status = 'Cancelled';
+
+    DELETE FROM Bookings
+    WHERE BookingID IN (
+        SELECT BookingID FROM inserted WHERE Status = 'Cancelled'
+    );
+END;
+
 CREATE TABLE Roles (
     RoleID INT PRIMARY KEY IDENTITY(1,1),
     RoleName NVARCHAR(50) NOT NULL UNIQUE
 );
 
--- Создание таблицы пользователей
+
 CREATE TABLE Users (
     UserID INT PRIMARY KEY IDENTITY(1,1),
     RoleID INT NOT NULL,
@@ -24,7 +61,6 @@ CREATE TABLE Users (
     FOREIGN KEY (RoleID) REFERENCES Roles(RoleID)
 );
 
--- Таблица для хранения refresh токенов
 CREATE TABLE RefreshTokens (
     TokenID INT PRIMARY KEY IDENTITY(1,1),
     UserID INT NOT NULL,
@@ -34,13 +70,11 @@ CREATE TABLE RefreshTokens (
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
 
--- Таблица категорий услуг
 CREATE TABLE Categories (
     CategoryID INT PRIMARY KEY IDENTITY(1,1),
     CategoryName NVARCHAR(100) NOT NULL UNIQUE
 );
 
--- Таблица услуг студии
 CREATE TABLE Services (
     ServiceID INT PRIMARY KEY IDENTITY(1,1),
     CategoryID INT NOT NULL,
@@ -50,7 +84,6 @@ CREATE TABLE Services (
     FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
 );
 
--- Таблица помещений
 CREATE TABLE Rooms (
     RoomID INT PRIMARY KEY IDENTITY(1,1),
     RoomName NVARCHAR(100) NOT NULL,
@@ -58,7 +91,6 @@ CREATE TABLE Rooms (
     IsAvailable BIT NOT NULL DEFAULT 1
 );
 
--- Таблица бронирований
 CREATE TABLE Bookings (
     BookingID INT PRIMARY KEY IDENTITY(1,1),
     UserID INT NOT NULL,
@@ -73,7 +105,43 @@ CREATE TABLE Bookings (
     CHECK (EndTime > StartTime)
 );
 
--- Таблица для сбора статистики активности
+CREATE TABLE RejectedBookings (
+    RejectedBookingID INT PRIMARY KEY IDENTITY(1,1),
+    BookingID INT NOT NULL,  
+    UserID INT NOT NULL,
+    RoomID INT NOT NULL,
+    ServiceID INT NOT NULL,
+    StartTime DATETIME NOT NULL,
+    EndTime DATETIME NOT NULL,
+    CancellationReason NVARCHAR(255),  
+    CancellationDate DATETIME NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID),
+    FOREIGN KEY (ServiceID) REFERENCES Services(ServiceID)
+);
+
+CREATE TRIGGER trg_MoveCancelledBooking
+ON Bookings
+AFTER UPDATE
+AS
+
+    INSERT INTO RejectedBookings (BookingID, UserID, RoomID, ServiceID, StartTime, EndTime)
+    SELECT 
+        i.BookingID,
+        i.UserID,
+        i.RoomID,
+        i.ServiceID,
+        i.StartTime,
+        i.EndTime
+    FROM inserted i
+    WHERE i.Status = 'Cancelled';
+
+    DELETE FROM Bookings
+    WHERE BookingID IN (
+        SELECT BookingID FROM inserted WHERE Status = 'Cancelled'
+    );
+END;
+
 CREATE TABLE UserActivity (
     ActivityID INT PRIMARY KEY IDENTITY(1,1),
     UserID INT NOT NULL,
@@ -83,7 +151,6 @@ CREATE TABLE UserActivity (
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
--- Связь услуг и помещений (многие-ко-многим)
 CREATE TABLE ServiceRooms (
     ServiceID INT NOT NULL,
     RoomID INT NOT NULL,
@@ -92,12 +159,29 @@ CREATE TABLE ServiceRooms (
     FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID) ON DELETE CASCADE
 );
 
--- Таблица посещений
 CREATE TABLE Visits (
     VisitID INT PRIMARY KEY IDENTITY(1,1),
-    UserHash NVARCHAR(64) NOT NULL UNIQUE,
-    FirstVisitDate DATETIME NOT NULL DEFAULT GETDATE()
+    UserHash NVARCHAR(64) NOT NULL UNIQUE, 
+    FirstVisitDate DATETIME NOT NULL DEFAULT GETDATE(),
+    LastVisitDate DATETIME NOT NULL DEFAULT GETDATE() 
 );
+
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY IDENTITY(1,1),
+    FullName NVARCHAR(100) NOT NULL,
+    Position NVARCHAR(100),
+    HireDate DATE DEFAULT GETDATE()
+);
+
+-- Добавляем внешний ключ в таблицу Rooms
+ALTER TABLE Rooms
+ADD EmployeeID INT;
+
+ALTER TABLE Rooms
+ADD CONSTRAINT FK_Rooms_Employees FOREIGN KEY (EmployeeID)
+REFERENCES Employees(EmployeeID);
+
+
 
 -- Начальные данные
 INSERT INTO Roles (RoleName) VALUES 
@@ -134,6 +218,5 @@ INSERT INTO ServiceRooms (ServiceID, RoomID) VALUES
 (5, 3),
 (6, 4);
 
--- Индексы для оптимизации
-CREATE INDEX IX_Bookings_Time ON Bookings (StartTime, EndTime);
-CREATE INDEX IX_Services_Color ON Services (BaseColor);
+
+

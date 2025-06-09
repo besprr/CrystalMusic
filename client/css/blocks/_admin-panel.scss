@@ -1,88 +1,88 @@
 #adminPanelDialog {
-  width: 80%;
-  max-width: 800px;
-  padding: 20px;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 80%;
+	max-width: 800px;
+	padding: 20px;
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #adminPanelDialog table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
 }
 
 #adminPanelDialog th,
 #adminPanelDialog td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
+	padding: 10px;
+	border: 1px solid #ddd;
+	text-align: left;
 }
 
 #adminPanelDialog th {
-  background-color: #f4f4f4;
+	background-color: #f4f4f4;
 }
 
 #adminPanelDialog button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+	margin-top: 20px;
+	padding: 10px 20px;
+	background-color: rgb(121, 35, 1);
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 #adminPanelDialog button:hover {
-  background-color: #0056b3;
+	background-color: rgb(132, 41, 5);
 }
 
 .tabs {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .tablinks {
-  padding: 10px 20px;
-  cursor: pointer;
-  background: #f0f0f0;
-  border: none;
-  margin-right: 5px;
+	padding: 10px 20px;
+	cursor: pointer;
+	background: #f0f0f0;
+	border: none;
+	margin-right: 5px;
 }
 
 .tablinks.active {
-  background: #007bff;
-  color: white;
+	background: rgb(121, 35, 1);
+	color: white;
 }
 
 .action-buttons button {
-  padding: 5px 10px;
-  margin: 0 5px;
-  border: none;
-  cursor: pointer;
-  border-radius: 3px;
+	padding: 5px 10px;
+	margin: 0 5px;
+	border: none;
+	cursor: pointer;
+	border-radius: 3px;
 }
 
 .action-buttons button:first-child {
-  background: #28a745;
-  color: white;
+	background: #28a745;
+	color: white;
 }
 
 .action-buttons button:last-child {
-  background: #dc3545;
-  color: white;
+	background: #dc3545;
+	color: white;
 }
 
 #searchUsers {
-  margin-bottom: 15px;
-  padding: 8px;
-  width: 100%;
-  max-width: 300px;
+	margin-bottom: 15px;
+	padding: 8px;
+	width: 100%;
+	max-width: 300px;
 }
 
 .tabcontent {
-  display: none;
+	display: none;
 }
 .tabcontent.active {
-  display: block;
+	display: block;
 }

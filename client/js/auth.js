@@ -64,6 +64,9 @@ export const setupAuth = () => {
 				localStorage.setItem('userName', data.user.FullName)
 				localStorage.setItem('userEmail', data.user.Email)
 				localStorage.setItem('roleId', data.user.RoleID)
+				localStorage.setItem('userId', data.user.UserID)
+
+				
 
 				updateButtonsAfterAuth(true)
 			} else {

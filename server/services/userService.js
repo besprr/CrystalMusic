@@ -25,8 +25,15 @@ const getUserByEmail = async email => {
 	return result[0]
 }
 
+const getUserById = async userId => {
+	const query = `SELECT Email FROM Users WHERE UserID = ?`
+	const [user] = await queryDatabase(query, [userId])
+	return user
+}
+
 module.exports = {
 	checkIfExists,
 	createUser,
 	getUserByEmail,
+	getUserById,
 }
